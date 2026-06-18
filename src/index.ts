@@ -1,15 +1,34 @@
-import { serve } from '@hono/node-server'
-import { Hono } from 'hono'
+import { serve } from "@hono/node-server";
+import { Context, Hono } from "hono";
+import { loadEnv } from "./helpers/env.js";
+import { errorHandlerMiddleware } from "./middlewares/error-handler.js";
+import { logger } from "hono/logger";
+import CustomLogger from "./helpers/logger.js";
 
-const app = new Hono()
+const app = new Hono();
+const env = loadEnv();
 
-app.get('/', (c) => {
-  return c.text('Hello Hono!')
-})
+app.use(logger());
 
-serve({
-  fetch: app.fetch,
-  port: 3000
-}, (info) => {
-  console.log(`Server is running on http://localhost:${info.port}`)
-})
+app.onError(errorHandlerMiddleware);
+
+app.use("*", (c) => {
+  throw new Error(`Route ${c.req.url} not found`);
+});
+
+
+
+serve(
+  {
+    fetch: app.fetch,
+    port: env.PORT as unknown as number,
+  },
+  (info) => {
+    const logInfo = {
+      level: "info",
+      message: `Server is running on http://localhost:${info.port}`,
+      port: info.port,
+    };
+    CustomLogger(JSON.stringify(logInfo));
+  },
+);
