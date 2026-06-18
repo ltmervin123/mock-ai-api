@@ -8,7 +8,7 @@ export async function errorHandlerMiddleware(err: Error, c: Context) {
   const info = getConnInfo(c);
   const clientIp = info.remote.address;
   const jsonError = {
-    level: "error",
+    timestamp: new Date().toISOString(),
     message: error.message,
     URL: c.req.url,
     statusCode,

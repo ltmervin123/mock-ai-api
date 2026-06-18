@@ -1,82 +1,88 @@
+
+---
+
 # Local Development Setup
 
 This project uses **pnpm** as the package manager.
 
 ## Prerequisites
 
-Make sure the following are installed:
+Make sure the following are installed and running on your machine:
 
-* Node.js (LTS version recommended)
-* Docker Desktop
-* pnpm
+* **Node.js** (LTS version recommended)
+* **Docker Desktop**
+* **pnpm**
 
-## Install pnpm
+## 1. Install pnpm
 
 If pnpm is not installed globally, run:
 
 ```bash
 npm install -g pnpm@latest-11
+
 ```
 
-## Install Dependencies
+## 2. Install Dependencies & Generate Client
+
+Install the project dependencies. This will also automatically trigger the generation of your type-safe Prisma Client:
 
 ```bash
 pnpm install
+
 ```
 
-## Start PostgreSQL Database
+## 3. Configure Environment Variables
 
-Make sure Docker Desktop is running, then start the database container:
+Create your local environment file by copying the example file:
 
 ```bash
-docker compose up -d
+cp .env.example .env
+
 ```
 
-Verify the container is running:
+## 5. Run Database Migrations
+
+Apply the latest database schema migrations to your local PostgreSQL instance:
 
 ```bash
-docker ps
+pnpm db:migrate
+
 ```
 
-## Configure Environment Variables
+*Note: If your database is already up to date but you are missing code autocomplete or types, you can manually force a client rebuild using `pnpm prisma generate`.*
 
-Create a `.env` look for .env.example for variables needed
+## 6. Run the Application
 
-
-## Run Database Migrations
-
-Apply the latest Prisma migrations:
-
-```bash
-pnpm prisma migrate dev
-```
-
-## (Optional) Open Prisma Studio
-
-To inspect and manage database records locally:
-
-```bash
-pnpm prisma studio
-```
-
-Prisma Studio will be available at:
-
-```text
-http://localhost:5555
-```
-
-## Run the Application
-
-Make sure Docker is running in the background, then start the development server:
+With Docker running your database in the background, start the Hono development server:
 
 ```bash
 pnpm run dev
+
 ```
 
-## Access the Application
-
-Open:
+The application will be accessible at:
 
 ```text
 http://localhost:3000
+
+```
+
+---
+
+## 🛠️ Optional Database Tools
+
+### Open Prisma Studio
+
+To visually inspect and manage your database records locally through a GUI web interface:
+
+```bash
+pnpm prisma studio
+
+```
+
+Prisma Studio will open automatically at:
+
+```text
+http://localhost:5555
+
 ```
