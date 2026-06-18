@@ -1,9 +1,9 @@
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
-import { loadEnv } from "./helpers/env.js";
-import { errorHandlerMiddleware } from "./middlewares/error-handler.js";
 import { logger } from "hono/logger";
-import CustomLogger from "./helpers/logger.js";
+import { loadEnv } from "./helpers/env";
+import { errorHandlerMiddleware } from "./middlewares/error-handler";
+import CustomLogger from "./helpers/logger";
 
 const app = new Hono();
 const env = loadEnv();

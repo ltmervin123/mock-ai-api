@@ -1,7 +1,7 @@
 import { type Context } from "hono";
-import { makeError } from "../helpers/error.js";
-import CustomLogger from "../helpers/logger.js";
 import { getConnInfo } from "@hono/node-server/conninfo";
+import { makeError } from "../helpers/error";
+import CustomLogger from "../helpers/logger";
 
 export async function errorHandlerMiddleware(err: Error, c: Context) {
   const { error, statusCode } = makeError(err);
