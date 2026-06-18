@@ -8,7 +8,7 @@ npm install -g pnpm@latest-11
 # Run package
 pnpm install
 
-# Run app locally
+# Run app locally make sure docker is running in the background 
 pnpm run dev
 ```
 
