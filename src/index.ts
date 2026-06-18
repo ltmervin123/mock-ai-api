@@ -1,5 +1,5 @@
 import { serve } from "@hono/node-server";
-import { Context, Hono } from "hono";
+import { Hono } from "hono";
 import { loadEnv } from "./helpers/env.js";
 import { errorHandlerMiddleware } from "./middlewares/error-handler.js";
 import { logger } from "hono/logger";
